@@ -1,0 +1,13 @@
+model TravelPlan {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  destination String
+  startDate   DateTime
+  endDate     DateTime
+  budget      Float
+  travelType  TravelType
+  description String?
+  reviews     Review[]
+  matches     Match[]
+}

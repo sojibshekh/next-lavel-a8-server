@@ -1,0 +1,27 @@
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+  SUPERADMIN
+}
+
+enum TravelType {
+  SOLO
+  FAMILY
+  FRIENDS
+  COUPLE
+  GROUP
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}

@@ -1,0 +1,10 @@
+model Match {
+  id          String   @id @default(cuid())
+  fromUser    User     @relation("FromUser", fields: [fromUserId], references: [id])
+  fromUserId  String
+  toUser      User     @relation("ToUser", fields: [toUserId], references: [id])
+  toUserId    String
+  travelPlan  TravelPlan @relation(fields: [travelPlanId], references: [id])
+  travelPlanId String
+  status      RequestStatus
+}
