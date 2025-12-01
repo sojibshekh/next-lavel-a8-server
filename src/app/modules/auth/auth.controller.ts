@@ -25,11 +25,11 @@ const login = catchAsync(async (req: Request, res: Response) => {
 
     const email = await req.body.email;
     const password = await req.body.password;
-
+   
     const result = await AuthService.login(email, password);
-
+    console.log(result);
     const userToken = await createUserTokens(result as User);
-
+    console.log(userToken);
     // Set Cookies
     setAuthCookie(res, userToken);
 

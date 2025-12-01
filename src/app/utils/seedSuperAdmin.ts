@@ -13,7 +13,7 @@ export const seedSuperAdmin = async () => {
             name: "Super Admin",
             email: envVars.SUPER_ADMIN_EMAIL,
             password: envVars.SUPER_ADMIN_PASSWORD,
-            role: Role.ADMIN
+            role: Role.SUPERADMIN
         };
 
         // Check if user already exists
