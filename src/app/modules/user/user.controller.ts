@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import catchAsync from "../../shared/catchAsync";
+import { UserService } from "./user.service";
 
 
 const createUser = catchAsync(async(req: Request,res:Response)=>{
-    console.log("ok login", req.body);
+    const payload = req.body;
+ 
 })
 
 

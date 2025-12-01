@@ -1,8 +1,8 @@
 enum Role {
   USER
   ADMIN
-  MODERATOR
   SUPERADMIN
+  GUIDE
 }
 
 enum TravelType {
@@ -11,6 +11,12 @@ enum TravelType {
   FRIENDS
   COUPLE
   GROUP
+}
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    BLOCK
 }
 
 enum PaymentStatus {
