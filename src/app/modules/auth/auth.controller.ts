@@ -7,7 +7,8 @@ import statusCode from 'http-status-codes';
 import AppError from "../../errorHelpers/AppError";
 import { setAuthCookie } from "../../utils/setCookie";
 import { createUserTokens } from "../../utils/userTokens";
-import { User } from "./user.interface";
+import { User } from "@prisma/client";
+
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
     const payload = await req.body;
@@ -27,9 +28,9 @@ const login = catchAsync(async (req: Request, res: Response) => {
     const password = await req.body.password;
    
     const result = await AuthService.login(email, password);
-    console.log(result);
+
     const userToken = await createUserTokens(result as User);
-    console.log(userToken);
+
     // Set Cookies
     setAuthCookie(res, userToken);
 

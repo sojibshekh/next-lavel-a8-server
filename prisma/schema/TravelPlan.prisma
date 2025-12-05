@@ -10,4 +10,7 @@ model TravelPlan {
   description String?
   reviews     Review[]
   matches     Match[]
+  createdAt   DateTime @default(now())
+ updatedAt DateTime @updatedAt @default(now())
+
 }

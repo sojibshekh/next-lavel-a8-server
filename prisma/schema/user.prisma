@@ -17,6 +17,8 @@ model User {
   sentRequests  Match[]       @relation("FromUser")
   receivedRequests Match[]    @relation("ToUser")
   admin        Admin?
+  tourist Tourist?
+
 }
 
 

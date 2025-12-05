@@ -14,10 +14,11 @@ enum TravelType {
 }
 
 enum UserStatus {
-    ACTIVE
-    INACTIVE
-    BLOCK
+  ACTIVE
+  INACTIVE
+  BLOCK
 }
+
 
 enum PaymentStatus {
   PENDING
