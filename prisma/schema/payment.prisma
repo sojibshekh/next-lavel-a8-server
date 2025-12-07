@@ -1,8 +1,12 @@
 model Payment {
-  id       String        @id @default(cuid())
-  user     User          @relation(fields: [userId], references: [id])
-  userId   String
-  planType String
-  amount   Float
-  status   PaymentStatus
+  id        String        @id @default(uuid())
+  userId    String
+  amount    Float
+  currency  String
+  status    PaymentStatus @default(PENDING)
+  tranId    String        @unique
+  plan      String? 
+  user      User          @relation(fields: [userId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }

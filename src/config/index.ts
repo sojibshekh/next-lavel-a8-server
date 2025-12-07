@@ -17,5 +17,10 @@ export default {
     JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
     JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
-    
+
+   SSL_COMMERZ_STORE_ID: process.env.SSL_COMMERZ_STORE_ID as string,
+    SSL_COMMERZ_STORE_PASSWORD: process.env.SSL_COMMERZ_STORE_PASSWORD as string,
+    SSL_COMMERZ_IS_SANDBOX: process.env.SSL_COMMERZ_IS_SANDBOX === 'true',
+    SSL_COMMERZ_SECRET_KEY: process.env.SSL_COMMERZ_SECRET_KEY as string,
+    BACKEND_URL: process.env.BACKEND_URL as string,
 }

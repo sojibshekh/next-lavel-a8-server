@@ -1,66 +1,82 @@
-// src/modules/payments/payment.service.ts
-import SSLCommerz from 'sslcommerz-lts'
 
-import { PaymentInitPayload } from "./payment.interface"
 
-const store_id = config .ssl.storeId
-const store_passwd = config.ssl.storePass
-const is_live = false // sandbox
 
-export const PaymentService = {
-  async initPayment(data: PaymentInitPayload) {
-    
-    const amount = data.plan === "MONTHLY" ? 500 : 5000
+import { PaymentInitInput } from "./payment.interface";
+import { config } from "dotenv";
+import { prisma } from "../../shared/db";
+import { PaymentStatus } from "@prisma/client";
+import envVars from "../../../config/index";
 
-    const transactionId = `sub_${Date.now()}`
+const SSLCommerz = require("sslcommerz-lts");
 
-    const paymentInfo = {
-      total_amount: amount,
-      currency: "BDT",
-      tran_id: transactionId,
-      success_url: `${config.backend_url}/api/payments/success?transId=${transactionId}`,
-      fail_url: `${config.backend_url}/api/payments/fail`,
-      cancel_url: `${config.backend_url}/api/payments/cancel`,
-      ipn_url: `${config.backend_url}/api/payments/ipn`,
-      product_name: "Travel Buddy Subscription",
-      product_category: "Subscription",
-      product_profile: "general",
-      cus_name: "User",
-      cus_email: "user@mail.com",
-      cus_add1: "Dhaka",
-      cus_city: "Dhaka",
-      cus_country: "Bangladesh",
-      cus_phone: "01700000000",
-    }
+const storeId = envVars.SSL_COMMERZ_STORE_ID;
+const storePass = envVars.SSL_COMMERZ_SECRET_KEY;
+const isLive = false; // sandbox
 
-    const sslcz = new SSLCommerz(store_id, store_passwd, is_live)
-    const apiResponse = await sslcz.init(paymentInfo)
 
-    if (apiResponse?.GatewayPageURL) {
 
-      // save payment request into DB
-      await prisma.payment.create({
-        data: {
-          userId: data.userId,
-          amount,
-          tranId: transactionId,
-          plan: data.plan,
-          status: "PENDING",
-        },
-      })
+const initSubscriptionPayment = async (payload: PaymentInitInput) => {
+  const { userId, plan } = payload;
 
-      return { url: apiResponse.GatewayPageURL }
-    }
+  const amount = plan === "MONTHLY" ? 500 : 5000;
+  const tranId = `sub_${Date.now()}`;
 
-    throw new Error("SSLCommerz initialization failed")
-  },
+  const sslcz = new SSLCommerz(storeId, storePass, isLive);
 
-  async confirmPayment(transId: string) {
-    return await prisma.payment.update({
-      where: { tranId: transId },
-      data: {
-        status: "SUCCESS",
-      },
-    })
-  },
-}
+  const paymentData = {
+    total_amount: amount,
+    currency: "BDT",
+    tran_id: tranId,
+    success_url: `${envVars.BACKEND_URL}/api/payment/success?tranId=${tranId}`,
+    fail_url:    `${envVars.BACKEND_URL}/api/payment/fail`,
+    cancel_url:  `${envVars.BACKEND_URL}/api/payment/cancel`,
+    ipn_url:     `${envVars.BACKEND_URL}/api/payment/ipn`,
+    product_name: "Subscription",
+    product_category: "Travel Buddy",
+    product_profile: "general",
+    cus_name: "User",
+    cus_email: "nur@mail.com",
+    cus_add1: "Dhaka",
+    cus_city: "Dhaka",
+    cus_country: "Bangladesh",
+    cus_phone: "01700000000",
+  };
+
+  const response = await sslcz.init(paymentData);
+
+  if (!response?.GatewayPageURL) {
+    throw new Error("SSLCommerz payment init failed");
+  }
+
+  await prisma.payment.create({
+    data: {
+      userId,
+      amount,
+      tranId,
+      plan,
+      status: "PENDING",
+      currency: "BDT"
+    },
+  });
+
+  return { url: response.GatewayPageURL };
+};
+
+
+
+const confirmPayment = async (tranId: string) => {
+  if (!tranId) throw new Error("tranId is required");
+
+  return await prisma.payment.update({
+    where: { tranId }, // ✅ ensure tranId exists in DB
+    data: {
+      status: PaymentStatus.COMPLETED
+    },
+  });
+};
+
+
+export const paymentService = {
+  initSubscriptionPayment,
+  confirmPayment,
+};
