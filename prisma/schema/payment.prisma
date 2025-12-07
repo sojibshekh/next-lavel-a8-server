@@ -1,8 +1,8 @@
 model Payment {
-  id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  planType  String
-  amount    Float
-  status    PaymentStatus
+  id       String        @id @default(cuid())
+  user     User          @relation(fields: [userId], references: [id])
+  userId   String
+  planType String
+  amount   Float
+  status   PaymentStatus
 }

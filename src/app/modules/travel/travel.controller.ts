@@ -81,10 +81,65 @@ const getMyTravelPlans = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateTravelPlan = catchAsync(async (req: Request, res: Response) => {
+  const travelId = req.params.id;
+
+  const decoded = req.user as JwtPayload; 
+  const userId = decoded.userId;
+
+  const updatedData = req.body;
+
+  const result = await travelServices.updateTravelPlan(travelId, userId, updatedData);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Travel plan updated successfully!",
+    data: result,
+  });
+});
+
+
+const deleteTravelPlan = catchAsync(async (req: Request, res: Response) => {
+  const travelId = req.params.id;
+
+  const decoded = req.user as JwtPayload;
+  const userId = decoded.userId;
+
+  const result = await travelServices.deleteTravelPlan(travelId, userId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Travel plan deleted successfully!",
+    data: result,
+  });
+});
+
+
+
+const matchTravelPlans = catchAsync(async (req: Request, res: Response) => {
+  const query = req.query;
+  const decoded = req.user as JwtPayload | undefined;
+
+  const result = await travelServices.matchTravelPlans(query, decoded);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Matched travel plans fetched successfully!",
+    data: result,
+  });
+});
+
+
 
 export const travelControllers = {
     createdTravel,
     getAllTravelPlans,
     getSingleTravelPlan,
-    getMyTravelPlans
+    getMyTravelPlans,
+    updateTravelPlan,
+    deleteTravelPlan,
+    matchTravelPlans
 }

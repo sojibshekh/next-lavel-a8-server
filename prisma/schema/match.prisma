@@ -1,10 +1,12 @@
 model Match {
-  id          String   @id @default(cuid())
-  fromUser    User     @relation("FromUser", fields: [fromUserId], references: [id])
-  fromUserId  String
-  toUser      User     @relation("ToUser", fields: [toUserId], references: [id])
-  toUserId    String
-  travelPlan  TravelPlan @relation(fields: [travelPlanId], references: [id])
+  id           String   @id @default(cuid())
+  fromUserId   String
+  fromUser     User     @relation("FromUser", fields: [fromUserId], references: [id])
+  toUserId     String
+  toUser       User     @relation("ToUser", fields: [toUserId], references: [id])
   travelPlanId String
-  status      RequestStatus
+  travelPlan   TravelPlan @relation(fields: [travelPlanId], references: [id])
+  status       String    @default("PENDING")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

@@ -19,7 +19,6 @@ enum UserStatus {
   BLOCK
 }
 
-
 enum PaymentStatus {
   PENDING
   COMPLETED
@@ -31,4 +30,10 @@ enum RequestStatus {
   ACCEPTED
   REJECTED
   CANCELLED
+}
+
+enum MatchStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
