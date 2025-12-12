@@ -10,6 +10,7 @@ import { paymentService } from "./payments.service";
 const subscribeController = catchAsync(async (req: Request, res: Response) => {
   const user = req.user as { userId: string };
   const { plan } = req.body;
+  
 
   if (!plan) {
     throw new Error("Subscription plan is required");

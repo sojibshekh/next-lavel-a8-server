@@ -10,7 +10,7 @@ import AppError from "../../errorHelpers/AppError";
 
 const createdTravel = catchAsync(async (req: Request, res: Response) => {
    const payload = req.body;
-   console.log(payload);
+ 
   const decoded = req.user as JwtPayload;
 
   const userId = decoded.userId; // token থেকে user id
@@ -30,8 +30,7 @@ const createdTravel = catchAsync(async (req: Request, res: Response) => {
 const getAllTravelPlans = catchAsync(async (req: Request, res: Response) => {
 
      const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 10;
-
+     const limit = Number(req.query.limit) || 10;
 
      const result = await travelServices.getAllTravelPlans(page, limit);
 
@@ -48,7 +47,6 @@ const getAllTravelPlans = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleTravelPlan = catchAsync(async (req: Request, res: Response) => {
   const travelPlanId = req.params.id;
-
   const travelPlan = await travelServices.getSingleTravelPlan(travelPlanId);
 
   sendResponse(res, {
@@ -67,10 +65,8 @@ const getMyTravelPlans = catchAsync(async (req: Request, res: Response) => {
    if (!decoded || !decoded.userId) {
     throw new AppError(401, "Unauthorized! User ID missing in token.");
   }
-  console.log('Decoded Token:', decoded); // Debugging line
-  const userId = decoded.userId;
 
-  console.log('Current User ID:', userId); // Debugging line
+  const userId = decoded.userId;
   const travels = await travelServices.getMyTravelPlans(userId);
 
   sendResponse(res, {

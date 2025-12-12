@@ -11,12 +11,12 @@ const createReviews = catchAsync(async (req: Request, res: Response) => {
    const payload = req.body;
 
   const decoded = req.user as JwtPayload;
-  console.log('Decoded Token:', decoded); // Debugging line
+
   const userId = decoded.userId; // token থেকে user id
 
 const result = await reviewServices.createReview(userId, payload);
 
-console.log('Review Creation Result:', result); // Debugging line
+
 
   sendResponse(res, {
     success: true,
@@ -59,10 +59,10 @@ const getSingleReview = catchAsync(async (req: Request, res: Response) => {
 
 export const getMyReviews = catchAsync(async (req: Request, res: Response) => {
   const decoded = req.user as { userId: string };
-  console.log('Decoded Token:', decoded); // Debugging line
+
   const userId = decoded.userId;
 
-  console.log('Current User ID:', userId); // Debugging line
+
 
   const reviews = await reviewServices.getMyReviews(userId);
 

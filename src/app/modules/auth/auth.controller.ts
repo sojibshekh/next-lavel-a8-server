@@ -29,6 +29,7 @@ const login = catchAsync(async (req: Request, res: Response) => {
    
     const result = await AuthService.login(email, password);
 
+
     const userToken = await createUserTokens(result as User);
 
     // Set Cookies

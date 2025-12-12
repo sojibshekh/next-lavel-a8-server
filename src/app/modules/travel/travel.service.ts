@@ -80,7 +80,7 @@ const getSingleTravelPlan = async (travelPlanId: string) => {
 
 
 const getMyTravelPlans = async (userId: string) => {
-    console.log('Fetching travel plans for User ID:', userId); // Debugging line
+   
   const travels = await prisma.travelPlan.findMany({
     where: { userId },
     include: {

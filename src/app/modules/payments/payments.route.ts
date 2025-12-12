@@ -13,7 +13,7 @@ router.post(
   paymentControllers.subscribeController
 );
 
-router.post("/success", paymentControllers.paymentSuccessController);
+router.post("/success",  checkAuth(Role.USER, Role.ADMIN), paymentControllers.paymentSuccessController);
 router.post("/fail", paymentControllers.paymentFailController);
 router.post("/cancel", paymentControllers.paymentCancelController);
 

@@ -21,7 +21,7 @@ app.use(expressSession({
 }));
 app.use(cookieParser());
 app.use(cors({
-    origin: envVars.frontend_url,
+    origin: envVars.frontend_url || "http://localhost:3000" || "https://tourmateassignment8.vercel.app/",
     credentials: true,
 }));
 
