@@ -52,6 +52,9 @@ export const getUserByIdController = catchAsync(async (req: Request, res: Respon
 });
 
 
+
+
+
 export const UserController = {
     getMe,
     getAllUsersController,

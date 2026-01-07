@@ -9,3 +9,5 @@ export interface TGenericErrorResponse {
     message: string,
     errorSources?: TErrorSources[]
 }
+
+

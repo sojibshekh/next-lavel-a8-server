@@ -113,7 +113,7 @@ const updateTravelPlan = async (
     throw new AppError(404, "Travel plan not found!");
   }
 
-  // Ownership check — ভিন্ন user হলে update করতে পারবে না
+
   if (travel.userId !== userId) {
     throw new AppError(403, "You are not authorized to update this travel plan!");
   }

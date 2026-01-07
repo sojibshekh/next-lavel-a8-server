@@ -1,20 +1,10 @@
-// src/modules/payment/payment.route.ts
-
-import express from "express";
-import { paymentControllers } from "./payments.controller";
-import { Role } from "@prisma/client";
+import { Router } from "express";
+import { createCheckoutSession } from "./payments.controller";
 import { checkAuth } from "../../middlewares/checkAuth";
 
-const router = express.Router();
 
-router.post(
-  "/subscribe",
-  checkAuth(Role.USER, Role.ADMIN), 
-  paymentControllers.subscribeController
-);
+const router = Router();
 
-router.post("/success",  checkAuth(Role.USER, Role.ADMIN), paymentControllers.paymentSuccessController);
-router.post("/fail", paymentControllers.paymentFailController);
-router.post("/cancel", paymentControllers.paymentCancelController);
+router.post("/checkout", checkAuth("USER"), createCheckoutSession);
 
-export const paymentRoute = router;
+export const paymentsRoute = router;

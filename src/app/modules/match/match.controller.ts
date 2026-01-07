@@ -58,8 +58,28 @@ const getMyMatchesController = catchAsync(async (req: Request, res: Response) =>
   });
 });
 
+
+const getRequestsOnMyTravelsController = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = req.user as { userId: string };
+
+    const requests = await matchServices.getRequestsForMyTravels(
+      user.userId
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatusCode.OK,
+      message: "Fetched requests on your travels",
+      data: requests,
+    });
+  }
+);
+
+
 export const matchControllers = {
   requestMatchController,
   respondMatchController,
-  getMyMatchesController
+  getMyMatchesController,
+  getRequestsOnMyTravelsController,
 };

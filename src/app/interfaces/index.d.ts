@@ -8,3 +8,13 @@ declare global {
         }
     }
 };
+
+
+declare global {
+  namespace Express {
+    interface Request {
+      rawBody?: Buffer;  // Add rawBody property
+      user?: any;        // Also your custom user
+    }
+  }
+}

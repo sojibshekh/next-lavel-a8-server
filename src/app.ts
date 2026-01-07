@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 
 import router from './app/routes';
+import { stripeWebhook } from './app/modules/payments/stripe.webhook';
 
 const app: Application = express();
 
@@ -34,6 +35,9 @@ app.get('/', (req: Request, res: Response) => {
         timeStamp: new Date().toISOString()
     })
 });
+
+
+
 
 
 app.use(globalErrorHandler);

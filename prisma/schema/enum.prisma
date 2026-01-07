@@ -37,3 +37,8 @@ enum MatchStatus {
   APPROVED
   REJECTED
 }
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}

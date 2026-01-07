@@ -1,12 +1,25 @@
-// src/modules/payment/payment.interface.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type SubscriptionPlan = "MONTHLY" | "YEARLY";
+import { Types } from "@prisma/client/runtime/library";
 
-export interface PaymentInitInput {
-  userId: string;
-  plan: SubscriptionPlan;
+
+export enum PAYMENT_STATUS {
+    PAID = "PAID",
+    UNPAID = "UNPAID",
+    CANCELLED = "CANCELLED",
+    FAILED = "FAILED",
+    REFUNDED = "REFUNDED"
 }
 
-export interface SSLInitResponse {
-  GatewayPageURL: string;
+export interface IPayment {
+
+  user: string;                      
+  subscriptionId: string;
+  transactionId: string;            
+  amount: number;                    
+  status: PAYMENT_STATUS;
+  paymentGatewayData?: any;          
+  invoiceUrl?: string;               
+  createdAt?: Date;
+  updatedAt?: Date;
 }

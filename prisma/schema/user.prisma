@@ -17,6 +17,8 @@ model User {
   sentRequests     Match[]        @relation("FromUser")
   receivedRequests Match[]        @relation("ToUser")
   subscriptions    Subscription[] @relation("UserSubscription")
+  isPremium Boolean @default(false)
+
   admin            Admin?
   tourist          Tourist?
 }

@@ -3,9 +3,10 @@ import path from 'path';
 import { UserRoute } from '../modules/user/user.route';
 import { authRoutes } from '../modules/auth/auth.route';
 import { travelRoute } from '../modules/travel/travel.route';
-import { paymentRoute } from '../modules/payments/payments.route';
+
 import { reviewlRoute } from '../modules/reviews/reviews.route';
 import { matchesRoute } from '../modules/match/match.route';
+import { paymentsRoute } from '../modules/payments/payments.route';
 
 
 const router = express.Router();
@@ -35,7 +36,7 @@ const moduleRoutes = [
     },
      {
         path: '/payments',
-        route:  paymentRoute
+        route:  paymentsRoute
     }
 ];
 

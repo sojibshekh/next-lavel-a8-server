@@ -11,5 +11,8 @@ router.patch('/:id/respond', checkAuth(Role.USER, Role.ADMIN), matchControllers.
 
 router.get('/my', checkAuth(Role.USER, Role.ADMIN), matchControllers.getMyMatchesController);
 
+router.get( '/requests-on-my-travels', checkAuth(Role.USER, Role.ADMIN), matchControllers.getRequestsOnMyTravelsController);
+
+
 
 export const matchesRoute = router;

@@ -103,8 +103,39 @@ const getMyMatches = async (userId: string) => {
   return { sentRequests, receivedRequests };
 };
 
+
+const getRequestsForMyTravels = async (ownerId: string) => {
+  return prisma.match.findMany({
+    where: {
+      travelPlan: {
+        userId: ownerId, // 🔥 travel owner
+      },
+    },
+    include: {
+      fromUser: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+      travelPlan: {
+        select: {
+          id: true,
+          destination: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+};
+
+
 export const matchServices = {
   requestToJoin,
   respondToMatch,
-  getMyMatches
+  getMyMatches,
+  getRequestsForMyTravels,
 };
