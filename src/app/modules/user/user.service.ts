@@ -15,6 +15,12 @@ const getMe = async (decodedToken: JwtPayload) => {
             name: true,
             email: true,
             role: true,
+             bio: true,
+            currentLocation: true,
+            interests: true,
+            visitedCountries: true,
+            profilePhoto: true,
+            isPremium: true,
         
            
         },
@@ -60,9 +66,37 @@ export const getUserById = async (id: string) => {
   return user;
 };
 
+
+const updateMyProfile = async (
+  decodedToken: JwtPayload,
+  payload: any
+) => {
+  if (!decodedToken.email) {
+    throw new Error("Invalid token: email missing");
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: {
+      email: decodedToken.email, // ✅ UNIQUE
+    },
+    data: {
+      name: payload.name,
+      bio: payload.bio,
+      profilePhoto: payload.profilePhoto,
+      currentLocation: payload.address,
+      interests: payload.travelInterests || [],
+      visitedCountries: payload.visitedCountries || [],
+    },
+  });
+
+  return updatedUser;
+};
+
+
 export const UserService = {
  
     getMe,
     getAllUsersService,
     getUserById,
+    updateMyProfile,
 }

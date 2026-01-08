@@ -18,7 +18,7 @@ router.get("/all-users/:id", getUserByIdController);
 router.patch(
   "/update-my-profile",
   checkAuth(Role.USER, Role.ADMIN, Role.SUPERADMIN),
-  multerUpload.single("file"),          // handle file upload
+  multerUpload.single("file"), UserController.updateMyProfile         // handle file upload
 
 );
 

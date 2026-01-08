@@ -69,7 +69,17 @@ const getSingleTravelPlan = async (travelPlanId: string) => {
           reviewer: { select: { name: true, email: true } },
         },
       },
-      matches: true, // যদি matches দরকার হয়
+      matches: {
+        include: {
+          fromUser: {  // ✅ এখানে nested user include করতে হবে
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
     },
   });
 
