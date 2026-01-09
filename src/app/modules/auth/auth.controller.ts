@@ -33,15 +33,15 @@ const login = catchAsync(async (req: Request, res: Response) => {
     const userToken = await createUserTokens(result as User);
 
     // Set Cookies
-    // setAuthCookie(res, userToken);
+    setAuthCookie(res, userToken);
 
     sendResponse(res, {
         success: true,
         statusCode: statusCode.OK,
         message: "Log In Successfully!",
         data: {
-            accessToken: userToken.accessToken,
-            refreshToken: userToken.refreshToken,
+            // accessToken: userToken.accessToken,
+            // refreshToken: userToken.refreshToken,
             user: result
         }
     })
