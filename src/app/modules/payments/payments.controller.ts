@@ -10,13 +10,12 @@ const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
 export const createCheckoutSession = async (req: Request, res: Response) => {
   const { priceId } = req.body;
   const user = req.user;
-
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
     customer_email: user.email,
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${config.frontend_url}/payment-success`,
-    cancel_url: `${config.frontend_url}/payment-cancel`,
+    success_url: `${config.frontend_url}/dashboard/payment-success`,
+    cancel_url: `${config.frontend_url}/dashboard/payment-cancel`,
   });
 
   res.status(200).json({ url: session.url });

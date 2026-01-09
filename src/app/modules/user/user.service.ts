@@ -15,14 +15,12 @@ const getMe = async (decodedToken: JwtPayload) => {
             name: true,
             email: true,
             role: true,
-             bio: true,
+            bio: true,
             currentLocation: true,
             interests: true,
             visitedCountries: true,
             profilePhoto: true,
-            isPremium: true,
-        
-           
+            isPremium: true, 
         },
     });
 

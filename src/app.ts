@@ -11,7 +11,16 @@ import 'module-alias/register';
 import router from './app/routes';
 import { stripeWebhook } from './app/modules/payments/stripe.webhook';
 
+
+
+
 const app: Application = express();
+app.post(
+  "/api/v1/payments/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
 
 //parser
 app.use(express.json());
@@ -42,12 +51,6 @@ app.get('/', (req: Request, res: Response) => {
     })
 });
 
-
-app.post(
-  "/webhook",
-  express.raw({ type: "application/json" }),
-  stripeWebhook
-);
 
 
 app.use(globalErrorHandler);
