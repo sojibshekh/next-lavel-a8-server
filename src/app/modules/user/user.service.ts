@@ -49,7 +49,7 @@ export const getAllUsersService = async () => {
 
         },
         orderBy: {
-            name: "asc", // নাম অনুযায়ী sort
+            name: "asc", 
         },
     });
 

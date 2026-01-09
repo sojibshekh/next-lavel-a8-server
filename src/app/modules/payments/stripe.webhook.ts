@@ -20,7 +20,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     event = stripe.webhooks.constructEvent(
       req.rawBody!,
       sig,
-      config.STRIPE_WEBHOOK_SECRET // 🔥 FIXED
+      config.STRIPE_WEBHOOK_SECRET 
     );
   } catch (err: any) {
     console.error("❌ Webhook verification failed:", err.message);

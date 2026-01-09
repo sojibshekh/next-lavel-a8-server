@@ -54,7 +54,6 @@ export const getUserByIdController = catchAsync(async (req: Request, res: Respon
 
 const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
   const decodedToken = req.user as JwtPayload;
-
   const result = await UserService.updateMyProfile(decodedToken, req.body);
 
   sendResponse(res, {

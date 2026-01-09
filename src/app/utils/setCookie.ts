@@ -10,10 +10,10 @@ export const setAuthCookie = (res: Response, tokenInfo: AuthTokens) => {
 
     const cookieOptions = {
         httpOnly: true,
-        secure: isProduction,
-        sameSite: isProduction ? "none" as const : "lax" as const, // 🔥 type safe
+        secure: true,  
+        sameSite: "none" as const , 
         path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, 
     };
 
     if (tokenInfo.accessToken) {

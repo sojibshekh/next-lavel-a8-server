@@ -5,16 +5,16 @@ import notFound from './app/middlewares/notFound';
 import config from './config';
 import envVars from './config/index';
 import cookieParser from 'cookie-parser';
-import expressSession from 'express-session';
+
 import 'module-alias/register';
 
 import router from './app/routes';
 import { stripeWebhook } from './app/modules/payments/stripe.webhook';
 
 
-
-
 const app: Application = express();
+
+app.set("trust proxy", 1);
 app.post(
   "/api/v1/payments/webhook",
   express.raw({ type: "application/json" }),
@@ -23,14 +23,12 @@ app.post(
 
 
 //parser
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(expressSession({
-    secret: envVars.EXPRESS_SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(cookieParser());
+
+
+
 app.use(cors({
      origin: [
     'http://localhost:3000',                 // dev frontend
@@ -39,6 +37,7 @@ app.use(cors({
   ].filter(Boolean) as string[],
    
     credentials: true,
+    
 }));
 
 app.use('/api/v1', router)
