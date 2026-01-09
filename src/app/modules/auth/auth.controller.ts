@@ -40,8 +40,8 @@ const login = catchAsync(async (req: Request, res: Response) => {
         statusCode: statusCode.OK,
         message: "Log In Successfully!",
         data: {
-            // accessToken: userToken.accessToken,
-            // refreshToken: userToken.refreshToken,
+            accessToken: userToken.accessToken,
+            refreshToken: userToken.refreshToken,
             user: result
         }
     })
