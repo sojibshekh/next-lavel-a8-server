@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Stripe from "stripe";
 
-import config from "@/src/config";
+import config from "../../../config";
 import { prisma } from "../../shared/db";
 
 const stripe = new Stripe(config.STRIPE_SECRET_KEY, {

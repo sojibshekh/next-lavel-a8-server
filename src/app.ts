@@ -6,6 +6,7 @@ import config from './config';
 import envVars from './config/index';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
+import 'module-alias/register';
 
 import router from './app/routes';
 import { stripeWebhook } from './app/modules/payments/stripe.webhook';
@@ -22,7 +23,12 @@ app.use(expressSession({
 }));
 app.use(cookieParser());
 app.use(cors({
-    origin: envVars.frontend_url || "http://localhost:3000" || "https://tourmateassignment8.vercel.app/",
+     origin: [
+    'http://localhost:3000',                 // dev frontend
+    'https://tourmateassignment8.vercel.app',
+    
+  ].filter(Boolean) as string[],
+   
     credentials: true,
 }));
 
