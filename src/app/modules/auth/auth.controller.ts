@@ -33,7 +33,7 @@ const login = catchAsync(async (req: Request, res: Response) => {
     const userToken = await createUserTokens(result as User);
 
     // Set Cookies
-    setAuthCookie(res, userToken);
+    // setAuthCookie(res, userToken);
 
     sendResponse(res, {
         success: true,

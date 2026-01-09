@@ -16,7 +16,7 @@ const app: Application = express();
 
 app.set("trust proxy", 1);
 app.post(
-  "/api/v1/payments/webhook",
+  "/webhook",
   express.raw({ type: "application/json" }),
   stripeWebhook
 );
@@ -28,15 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 
-
 app.use(cors({
      origin: [
-    'http://localhost:3000',                 // dev frontend
     'https://tourmateassignment8.vercel.app',
-    
-  ].filter(Boolean) as string[],
+  ],
    
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     
 }));
 
