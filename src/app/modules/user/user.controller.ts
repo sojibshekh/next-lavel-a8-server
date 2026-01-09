@@ -57,8 +57,6 @@ const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
 
   const result = await UserService.updateMyProfile(decodedToken, req.body);
 
-  console.log("Updated profile result:", result);
-
   sendResponse(res, {
     success: true,
     statusCode: httpStatusCode.OK,

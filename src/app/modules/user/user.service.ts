@@ -41,6 +41,14 @@ export const getAllUsersService = async () => {
             name: true,
             email: true,
             role: true,
+            status: true,
+            bio: true,
+            profilePhoto: true,
+            currentLocation: true,
+            interests: true,
+            visitedCountries: true,
+            isPremium: true,
+
         },
         orderBy: {
             name: "asc", // নাম অনুযায়ী sort
@@ -55,11 +63,18 @@ export const getUserById = async (id: string) => {
   const user = await prisma.user.findUnique({
     where: { id },
     select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-    
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        status: true,
+        bio: true,
+        profilePhoto: true,
+        currentLocation: true,
+        interests: true,
+        visitedCountries: true,
+        isPremium: true,
+
     },
   });
 
@@ -86,6 +101,8 @@ const updateMyProfile = async (
       currentLocation: payload.address,
       interests: payload.travelInterests || [],
       visitedCountries: payload.visitedCountries || [],
+      isPremium: payload.isPremium,
+      
     },
   });
 

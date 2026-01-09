@@ -140,7 +140,7 @@ const updateTravelPlan = async (
 
 
 const deleteTravelPlan = async (travelId: string, userId: string) => {
-  // Check travel exists
+
   const travel = await prisma.travelPlan.findUnique({
     where: { id: travelId },
   });
@@ -149,18 +149,32 @@ const deleteTravelPlan = async (travelId: string, userId: string) => {
     throw new AppError(404, "Travel plan not found!");
   }
 
-  // Ownership check
+  // 2️⃣ Ownership check
   if (travel.userId !== userId) {
     throw new AppError(403, "You are not authorized to delete this travel plan!");
   }
 
-  // Delete travel plan
-  const deleted = await prisma.travelPlan.delete({
-    where: { id: travelId },
+
+  const deletedTravel = await prisma.$transaction(async (tx) => {
+ 
+    await tx.match.deleteMany({
+      where: { travelPlanId: travelId },
+    });
+
+
+    await tx.review.deleteMany({
+      where: { travelPlanId: travelId },
+    });
+
+
+    return await tx.travelPlan.delete({
+      where: { id: travelId },
+    });
   });
 
-  return deleted;
+  return deletedTravel;
 };
+
 
 const matchTravelPlans = async (query: any, decoded: any) => {
   const {

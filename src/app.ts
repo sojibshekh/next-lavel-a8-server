@@ -37,7 +37,11 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
-
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
 
 
 app.use(globalErrorHandler);
