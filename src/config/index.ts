@@ -7,7 +7,7 @@ export default {
     node_env: process.env.NODE_ENV,
     port: process.env.PORT,
     database_url: process.env.DATABASE_URL,
-    frontend_url: process.env.FRONTEND_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL,
     EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
     BCRYPT_SALT_ROUND: process.env.BCRYPT_SALT_ROUND,
     SUPER_ADMIN_EMAIL : process.env.SUPER_ADMIN_EMAIL as string,

@@ -14,8 +14,8 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
     mode: "subscription",
     customer_email: user.email,
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${config.frontend_url}/dashboard/payment-success`,
-    cancel_url: `${config.frontend_url}/dashboard/payment-cancel`,
+    success_url: `${config.FRONTEND_URL}/dashboard/payment-success`,
+    cancel_url: `${config.FRONTEND_URL}/dashboard/payment-cancel`,
   });
 
   res.status(200).json({ url: session.url });
